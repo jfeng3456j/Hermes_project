@@ -238,6 +238,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         segueInfo.mediaID = src.mediaID
     }
     
+    //alert message
     func alertMessage (message:String) {
         let alert = UIAlertController(title: "Traffic Alert!", message: message, preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: "OK!", style: UIAlertActionStyle.default)
