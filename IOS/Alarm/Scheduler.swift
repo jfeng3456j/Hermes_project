@@ -55,6 +55,7 @@ class Scheduler : AlarmSchedulerDelegate
     
     private func correctDate(_ date: Date, onWeekdaysForNotify weekdays:[Int]) -> [Date]
     {
+        //seting the date
         var correctedDate: [Date] = [Date]()
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let now = Date()
