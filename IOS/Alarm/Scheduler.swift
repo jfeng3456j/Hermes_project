@@ -75,7 +75,7 @@ class Scheduler : AlarmSchedulerDelegate
             }
             return correctedDate
         }
-        //repeat
+        //repeat days
         else {
             let daysInWeek = 7
             correctedDate.removeAll(keepingCapacity: true)
