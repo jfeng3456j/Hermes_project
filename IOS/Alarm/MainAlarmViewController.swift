@@ -1,7 +1,9 @@
-// By: Luke Wuri, John Feng, and Chuan Tang
 //  MainAlarmViewController.swift
 //  Alarm-ios-swift
 
+
+
+// asdf
 import UIKit
 
 class MainAlarmViewController: UITableViewController{
