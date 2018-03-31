@@ -175,7 +175,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         return cell!
     }
     
-    
+    //this is the performSegue (links to different UI)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         if indexPath.section == 0 {
