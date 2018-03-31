@@ -16,11 +16,13 @@ struct Alarm: PropertyReflectable {
     var mediaLabel: String = "bell"
     var label: String = "Alarm"
     var onSnooze: Bool = false
+    
     var delay: String = ""
+    var autoTW: Bool = false
     
     init(){}
     
-    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String)  {
+    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String, autoTW: Bool)  {
         self.date = date
         self.enabled = enabled
         self.snoozeEnabled = snoozeEnabled
@@ -30,7 +32,9 @@ struct Alarm: PropertyReflectable {
         self.mediaLabel = mediaLabel
         self.label = label
         self.onSnooze = onSnooze
+        
         self.delay = delay
+        self.autoTW = autoTW
     }
     
     init(_ dict: PropertyReflectable.RepresentationType){
@@ -43,12 +47,15 @@ struct Alarm: PropertyReflectable {
         mediaLabel = dict["mediaLabel"] as! String
         label = dict["label"] as! String
         onSnooze = dict["onSnooze"] as! Bool
+        
         delay = dict["delay"] as! String
+        autoTW  = dict["autoTW"] as! Bool
     }
     
-    static var propertyCount: Int = 10
+    static var propertyCount: Int = 11
 }
 
+//format alarm time to 12 hour format
 extension Alarm {
     var formattedTime: String {
         let dateFormatter = DateFormatter()

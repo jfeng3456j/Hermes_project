@@ -16,18 +16,24 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     var alarmModel: Alarms = Alarms()
     var segueInfo: SegueInfo!
     var snoozeEnabled: Bool = false
+    
     var enabled: Bool!
+    
+    //traffic weather var
+    var autoTW: Bool = false
     
     override func viewDidLoad() {
         
         
         super.viewDidLoad()
+   
     }
     
     override func viewWillAppear(_ animated: Bool) {
         alarmModel=Alarms()
         tableView.reloadData()
         snoozeEnabled = segueInfo.snoozeEnabled
+        autoTW = segueInfo.autoTW
         if ((segueInfo.delay != nil) && (segueInfo.delay != "")  ){
         //var convertedTime = getNumberFrom(string: segueInfo.delay)
         
@@ -50,7 +56,12 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func saveEditAlarm(_ sender: AnyObject) {
         //set the alarm time from UIDatePicker
-        let date = Scheduler.correctSecondComponent(date: datePicker.date)
+        
+        //let date = Scheduler.correctSecondComponent(date: datePicker.date)
+        
+        //chuan's code
+        let date:Date=self.datePicker.date;
+        
         let index = segueInfo.curCellIndex
         var tempAlarm = Alarm()
         tempAlarm.date = date
@@ -64,12 +75,9 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         tempAlarm.onSnooze = false
         
         tempAlarm.delay = segueInfo.delay
-       
+        tempAlarm.autoTW = segueInfo.autoTW
         
-        print("huh: \(segueInfo.delay)")
-        print("final: \(tempAlarm.delay)")
-       
-        
+
         if segueInfo.isEditMode {
             alarmModel.alarms[index] = tempAlarm
         }
@@ -78,9 +86,6 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         }
         self.performSegue(withIdentifier: Id.saveSegueIdentifier, sender: self)
         
-       
-        
-
     }
     
  
@@ -94,9 +99,11 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    //number of row in the table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 4
+            //return 4
+            return 5
         }
         else {
             return 1
@@ -119,16 +126,32 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
                 cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             }
             else if indexPath.row == 1 {
+                cell!.textLabel!.text = "Automatic Traffic/Weather Delays"
+                
+                let sw = UISwitch(frame: CGRect())
+                sw.addTarget(self, action: #selector(AlarmAddEditViewController.trafficWeatherTap(_:)), for: UIControlEvents.touchUpInside)
+                
+                if autoTW {
+                    sw.setOn(true, animated: false)
+                }
+                
+                cell!.accessoryView = sw
+                
+                cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            }
+            
+    
+            else if indexPath.row == 2 {
                 cell!.textLabel!.text = "Details"
                 cell!.detailTextLabel!.text = segueInfo.label
                 cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             }
-            else if indexPath.row == 2 {
+            else if indexPath.row == 3 {
                 cell!.textLabel!.text = "Sound"
                 cell!.detailTextLabel!.text = segueInfo.mediaLabel
                 cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             }
-            else if indexPath.row == 3 {
+            else if indexPath.row == 4 {
                
                 cell!.textLabel!.text = "Snooze"
                 let sw = UISwitch(frame: CGRect())
@@ -152,7 +175,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         return cell!
     }
     
-    
+    //this is the performSegue (links to different UI)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         if indexPath.section == 0 {
@@ -161,11 +184,11 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
                 performSegue(withIdentifier: Id.weekdaysSegueIdentifier, sender: self)
                 cell?.setSelected(true, animated: false)
                 cell?.setSelected(false, animated: false)
-            case 1:
+            case 2:
                 performSegue(withIdentifier: Id.labelSegueIdentifier, sender: self)
                 cell?.setSelected(true, animated: false)
                 cell?.setSelected(false, animated: false)
-            case 2:
+            case 3:
                 performSegue(withIdentifier: Id.soundSegueIdentifier, sender: self)
                 cell?.setSelected(true, animated: false)
                 cell?.setSelected(false, animated: false)
@@ -184,6 +207,11 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func snoozeSwitchTapped (_ sender: UISwitch) {
         snoozeEnabled = sender.isOn
     }
+    
+    @IBAction func trafficWeatherTap (_ sender: UISwitch) {
+        autoTW = sender.isOn
+    }
+    
     
     
     // MARK: - Navigation
@@ -251,4 +279,5 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
             () -> Void in
         }
     }
+    
 }

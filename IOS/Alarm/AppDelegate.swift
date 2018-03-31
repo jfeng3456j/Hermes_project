@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
     }
    
     //receive local notification when app in foreground -alert notification
+    //**************** alarms goes off
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         
         //show an alert when the alarms goes off
