@@ -14,5 +14,7 @@ struct SegueInfo {
     var repeatWeekdays: [Int]
     var enabled: Bool
     var snoozeEnabled: Bool
+    
     var delay: String
+    var autoTW: Bool
 }
