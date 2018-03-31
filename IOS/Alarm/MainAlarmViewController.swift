@@ -1,4 +1,4 @@
-//
+// By: Luke Wuri, John Feng, and Chuan Tang
 //  MainAlarmViewController.swift
 //  Alarm-ios-swift
 
