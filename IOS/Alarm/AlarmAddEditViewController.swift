@@ -208,6 +208,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         snoozeEnabled = sender.isOn
     }
     
+    //automatic trafficweather UIswitch
     @IBAction func trafficWeatherTap (_ sender: UISwitch) {
         autoTW = sender.isOn
     }
