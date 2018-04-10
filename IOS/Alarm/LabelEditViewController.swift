@@ -11,9 +11,13 @@ import Foundation
 class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, UITextFieldDelegate{
     
     var delay: String!
+    var Rain, Snow, Sleet, Wind, Heavy, Mild, Low: String!
     
-   
     @IBOutlet weak var coordinateBIndicator: UILabel!
+    
+    
+  
+    
     
     //variables
     var label: String!
@@ -43,6 +47,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
     @IBOutlet weak var destination: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         labelTextField.becomeFirstResponder()
         // Do any additional setup after loading the view.
         self.labelTextField.delegate = self
@@ -239,7 +244,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
             () -> Void in
         }
     }
-    
+
 }
 
 

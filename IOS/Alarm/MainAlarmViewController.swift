@@ -2,6 +2,26 @@
 //  MainAlarmViewController.swift
 //  Alarm-ios-swift
 
+/*
+ Add autoTW variable
+ MainAlarmViewController
+ - func prepare (for segue
+ - fun tableView
+ AlarmAddEditViewController
+ - add variable
+ - fun viewWillAppear
+ - fun saveEditAlarm
+ - fun tableView
+ - add IBaction func
+ AlarmModel.swift
+ - add variable to struct alarm
+ - init (date: Date
+ - init(_dict
+ SegueInfo.Swift
+ - add variable
+ */
+
+
 import UIKit
 
 class MainAlarmViewController: UITableViewController{
@@ -58,10 +78,21 @@ class MainAlarmViewController: UITableViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isEditing {
-            performSegue(withIdentifier: Id.editSegueIdentifier, sender: SegueInfo(curCellIndex: indexPath.row, isEditMode: true, label: alarmModel.alarms[indexPath.row].label, mediaLabel: alarmModel.alarms[indexPath.row].mediaLabel, mediaID: alarmModel.alarms[indexPath.row].mediaID, repeatWeekdays: alarmModel.alarms[indexPath.row].repeatWeekdays, enabled: alarmModel.alarms[indexPath.row].enabled, snoozeEnabled: alarmModel.alarms[indexPath.row].snoozeEnabled,
+            performSegue(withIdentifier: Id.editSegueIdentifier, sender: SegueInfo(curCellIndex: indexPath.row, isEditMode: true, label: alarmModel.alarms[indexPath.row].label, mediaLabel: alarmModel.alarms[indexPath.row].mediaLabel, mediaID: alarmModel.alarms[indexPath.row].mediaID,
+                repeatWeekdays: alarmModel.alarms[indexPath.row].repeatWeekdays,
+                enabled: alarmModel.alarms[indexPath.row].enabled,
+                snoozeEnabled: alarmModel.alarms[indexPath.row].snoozeEnabled,
                                                                                    
                 delay:alarmModel.alarms[indexPath.row].delay,
-                autoTW:  alarmModel.alarms[indexPath.row].autoTW))
+                autoTW:  alarmModel.alarms[indexPath.row].autoTW,
+                Rain: alarmModel.alarms[indexPath.row].Rain,
+                Snow: alarmModel.alarms[indexPath.row].Snow,
+                Sleet: alarmModel.alarms[indexPath.row].Sleet,
+                Wind: alarmModel.alarms[indexPath.row].Wind,
+                Heavy: alarmModel.alarms[indexPath.row].Heavy,
+                Mild: alarmModel.alarms[indexPath.row].Mild,
+                Low: alarmModel.alarms[indexPath.row].Low
+                ))
         }
     }
     
@@ -154,7 +185,7 @@ class MainAlarmViewController: UITableViewController{
         let addEditController = dist.topViewController as! AlarmAddEditViewController
         if segue.identifier == Id.addSegueIdentifier {
             addEditController.navigationItem.title = "Add Alarm"
-            addEditController.segueInfo = SegueInfo(curCellIndex: alarmModel.count, isEditMode: false, label: "Alarm", mediaLabel: "bell", mediaID: "", repeatWeekdays: [], enabled: false, snoozeEnabled: false, delay: "", autoTW: false)
+            addEditController.segueInfo = SegueInfo(curCellIndex: alarmModel.count, isEditMode: false, label: "Alarm", mediaLabel: "bell", mediaID: "", repeatWeekdays: [], enabled: false, snoozeEnabled: false, delay: "", autoTW: false, Rain: "", Snow:"",Sleet:"",Wind:"",Heavy:"",Mild:"",Low:"")
             //addEditController.segueInfo = sender as! SegueInfo //added this instead
         }
         else if segue.identifier == Id.editSegueIdentifier {

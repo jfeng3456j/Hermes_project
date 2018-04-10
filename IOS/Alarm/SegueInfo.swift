@@ -17,4 +17,11 @@ struct SegueInfo {
     
     var delay: String
     var autoTW: Bool
+    var Rain: String
+    var Snow: String
+    var Sleet: String
+    var Wind: String
+    var Heavy: String
+    var Mild: String
+    var Low: String
 }

@@ -19,10 +19,18 @@ struct Alarm: PropertyReflectable {
     
     var delay: String = ""
     var autoTW: Bool = false
+    var Rain: String = ""
+    var Snow: String = ""
+    var Sleet: String = ""
+    var Wind: String = ""
+    var Heavy: String = ""
+    var Mild: String = ""
+    var Low: String = ""
+    
     
     init(){}
     
-    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String, autoTW: Bool)  {
+    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String, autoTW: Bool, Rain: String, Snow: String, Sleet: String, Wind: String, Heavy: String, Mild: String, Low: String)  {
         self.date = date
         self.enabled = enabled
         self.snoozeEnabled = snoozeEnabled
@@ -35,6 +43,14 @@ struct Alarm: PropertyReflectable {
         
         self.delay = delay
         self.autoTW = autoTW
+        self.Rain = Rain
+        self.Snow = Snow
+        self.Sleet = Sleet
+        self.Wind = Wind
+        self.Heavy = Heavy
+        self.Mild = Mild
+        self.Low = Low
+        
     }
     
     init(_ dict: PropertyReflectable.RepresentationType){
@@ -50,6 +66,14 @@ struct Alarm: PropertyReflectable {
         
         delay = dict["delay"] as! String
         autoTW  = dict["autoTW"] as! Bool
+        Rain = dict ["Rain"] as! String
+        Snow = dict ["Snow"] as! String
+        Sleet = dict ["Sleet"] as! String
+        Wind = dict ["Wind"] as! String
+        Heavy = dict ["Heavy"] as! String
+        Mild = dict ["Mild"] as! String
+        Low = dict ["Low"] as! String
+        
     }
     
     static var propertyCount: Int = 11
