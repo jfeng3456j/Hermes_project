@@ -26,11 +26,19 @@ struct Alarm: PropertyReflectable {
     var Heavy: String = ""
     var Mild: String = ""
     var Low: String = ""
+    var trafficStatus: String = ""
+    var weatherStatus: String = ""
+    var destinationLocation: String = ""
+    var sourceLocation: String = ""
+    var locType: String = ""
+    var maxDelay: String = ""
+    var midDelay: String = ""
+    
     
     
     init(){}
     
-    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String, autoTW: Bool, Rain: String, Snow: String, Sleet: String, Wind: String, Heavy: String, Mild: String, Low: String)  {
+    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String, autoTW: Bool, Rain: String, Snow: String, Sleet: String, Wind: String, Heavy: String, Mild: String, Low: String, trafficStatus: String, weatherStatus: String, destinationLocation: String, sourceLocation: String, locType: String)  {
         self.date = date
         self.enabled = enabled
         self.snoozeEnabled = snoozeEnabled
@@ -50,6 +58,12 @@ struct Alarm: PropertyReflectable {
         self.Heavy = Heavy
         self.Mild = Mild
         self.Low = Low
+        self.trafficStatus = trafficStatus
+        self.weatherStatus = weatherStatus
+        self.destinationLocation = destinationLocation
+        self.sourceLocation = sourceLocation
+        self.locType = locType
+        
         
     }
     
@@ -72,11 +86,18 @@ struct Alarm: PropertyReflectable {
         Wind = dict ["Wind"] as! String
         Heavy = dict ["Heavy"] as! String
         Mild = dict ["Mild"] as! String
-        Low = dict ["Low"] as! String
+        trafficStatus = dict ["trafficStatus"] as! String
+        weatherStatus = dict ["weatherStatus"] as! String
+        destinationLocation = dict ["destinationLocation"] as! String
+        sourceLocation = dict ["sourceLocation"] as! String
+        locType = dict ["locType"] as! String
+        maxDelay = dict ["maxDelay"] as! String
+        midDelay = dict["midDelay"] as! String
+        
         
     }
-    
-    static var propertyCount: Int = 11
+    //Update this incase you forget 
+    static var propertyCount: Int = 25
 }
 
 //format alarm time to 12 hour format

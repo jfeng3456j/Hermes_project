@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		52163DC5204F174700BB3FC7 /* herme3.png in Resources */ = {isa = PBXBuildFile; fileRef = 52163DC4204F174700BB3FC7 /* herme3.png */; };
 		52313591204DAB7A00B98ABB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52313590204DAB7A00B98ABB /* MapKit.framework */; };
+		523397BA208314110053139E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523397B9208314110053139E /* LocationViewController.swift */; };
 		52AC27C8204ED0140057D90F /* herme.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AC27C7204ED0140057D90F /* herme.png */; };
 		52AC27CA204ED9BF0057D90F /* herme2.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AC27C9204ED9BF0057D90F /* herme2.png */; };
 		52D1FD2E204E1DBC0015F189 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D1FD2D204E1DBC0015F189 /* SwiftyJSON.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		52163DC4204F174700BB3FC7 /* herme3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = herme3.png; sourceTree = "<group>"; };
 		52313590204DAB7A00B98ABB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		523397B9208314110053139E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		52640F90204CE4DD003F155A /* HermesAlarmProject */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HermesAlarmProject; sourceTree = "<group>"; };
 		52AC27C7204ED0140057D90F /* herme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = herme.png; sourceTree = "<group>"; };
 		52AC27C9204ED9BF0057D90F /* herme2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = herme2.png; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				9E9BEE061BCF8FF8000CF364 /* WeekdaysViewController.swift */,
 				9E603F581BD7CA6600303E93 /* LabelEditViewController.swift */,
 				52D1FD2D204E1DBC0015F189 /* SwiftyJSON.swift */,
+				523397B9208314110053139E /* LocationViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				7701B7B31E99414800908B6C /* UIWindow+Extension.swift in Sources */,
 				77A8570F1E41A04600971367 /* AlarmSchedulerDelegate.swift in Sources */,
 				52D1FD2E204E1DBC0015F189 /* SwiftyJSON.swift in Sources */,
+				523397BA208314110053139E /* LocationViewController.swift in Sources */,
 				77570F6B1E3EEA75005E2923 /* PropertyReflectable.swift in Sources */,
 				9E9BEE071BCF8FF8000CF364 /* WeekdaysViewController.swift in Sources */,
 			);

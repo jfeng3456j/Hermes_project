@@ -10,48 +10,40 @@ import Foundation
 
 class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, UITextFieldDelegate{
     
-    var delay: String!
-    var Rain, Snow, Sleet, Wind, Heavy, Mild, Low: String!
+    var delay, Rain, Snow, Sleet, Wind, Heavy, Mild, Low, locType, destinationLocation, sourceLocation: String!
     
     @IBOutlet weak var coordinateBIndicator: UILabel!
     
+    @IBOutlet weak var currButton: UIButton!
+    @IBOutlet weak var smartButton: UIButton!
+    @IBOutlet weak var custButton: UIButton!
     
-  
     
     
     //variables
     var label: String!
     var locationManager:CLLocationManager!
-    //
-    
     var coordinateA: String!
     var coordinateB: String!
-    
     var bPoint = MKPointAnnotation()
-    
     var userLocation:CLLocation!
     
-    //testing box
-    
-
-    
     //currenlocation textfield
-    @IBOutlet weak var currLocation: UITextField!
+   // @IBOutlet weak var currLocation: UITextField!
     @IBOutlet weak var labelTextField: UITextField!
     
-    
-    
-    //country UIpicker
-    @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var destination: UITextField!
+    @IBOutlet weak var saveLoadingIndicator: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         labelTextField.becomeFirstResponder()
         // Do any additional setup after loading the view.
         self.labelTextField.delegate = self
-        self.currLocation.delegate = self
+     //   self.currLocation.delegate = self
         
         labelTextField.text = label
         //currLocation.text = "location"
@@ -71,7 +63,10 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         // Dispose of any resources that can be recreated.
     }
     
+
+    
     override func viewWillAppear(_ animated: Bool) {
+        print("penis View Will Appear")
         saveLoadingIndicator.hidesWhenStopped = true
       
         coordinateBIndicator.backgroundColor = UIColor.red
@@ -116,7 +111,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
                     
                 }
                 let firstPL = plsResult.first
-                self.currLocation.text = firstPL?.name;
+              //  self.currLocation.text = firstPL?.name;
                 //self.currLocation.text = String(userLocation.coordinate.longitude) + "," + String(userLocation.coordinate.latitude);
                 self.coordinateA = String(userLocation.coordinate.latitude) + "," + String(userLocation.coordinate.longitude);
             }else {
@@ -141,7 +136,41 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
             if error == nil {
                 let placemarks = placemarks?.first
                 //let ano = MKPointAnnotation()
+                
                 let ano  = self.bPoint
+               //Change the text that the user inputted to a better formatted one
+                var corrText = ""
+                
+                if (placemarks?.name != nil){
+                    corrText += "\((placemarks?.name)!), "
+                }
+                
+                if (placemarks?.subThoroughfare != nil){
+                    corrText += "\((placemarks?.subThoroughfare)!), "
+                }
+                
+                if (placemarks?.thoroughfare != nil){
+                    corrText += "\((placemarks?.thoroughfare)!), "
+                }
+                if (placemarks?.locality != nil){
+                    corrText += "\((placemarks?.locality)!), "
+                }
+                if (placemarks?.administrativeArea != nil){
+                    corrText += "\((placemarks?.administrativeArea)!), "
+                }
+                if (placemarks?.country != nil){
+                    corrText += "\((placemarks?.country)!), "
+                }
+                if (placemarks?.postalCode != nil){
+                    corrText += "\((placemarks?.postalCode)!), "
+                }
+                
+         
+                
+                let trunc = String(corrText.characters.dropLast(2))
+               
+                
+                searchBar.text = trunc
                 
                 //get coordinates
                 ano.coordinate = (placemarks?.location?.coordinate)!
@@ -175,7 +204,52 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         return false
     }
     
-    @IBOutlet weak var saveLoadingIndicator: UIActivityIndicatorView!
+    @IBAction func currSelect(_ sender: Any) {
+        currButton.backgroundColor = UIColor.darkGray
+        smartButton.backgroundColor = UIColor.clear
+        custButton.backgroundColor = UIColor.clear
+    }
+    
+    
+    @IBAction func smartSelect(_ sender: Any) {
+        smartButton.backgroundColor = UIColor.darkGray
+        currButton.backgroundColor = UIColor.clear
+        custButton.backgroundColor = UIColor.clear
+    }
+    
+    //set location buttons event handler
+    @IBAction func custSelect(_ sender: Any) {
+        // Create a standard UIAlertController
+        /*
+        let alertController = UIAlertController(title: "Enter Location", message: "", preferredStyle: .alert)
+        
+        // Add a textField to your controller, with a placeholder value & secure entry enabled
+        
+        alertController.addTextField { textField in
+            textField.placeholder = "Enter Current Location"
+            textField.textAlignment = .center
+ 
+        }
+        
+        // A cancel action
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Canelled")
+        }
+        
+        // This action handles your confirmation action
+        let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
+            print("Current location value: \(alertController.textFields?.first?.text ?? "None")")
+        }
+        
+        // Add the actions, the order here does not matter
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        
+        // Present to user
+        present(alertController, animated: true, completion: nil)
+ 
+ */
+    }
     
     //post to php
     @IBAction func clickSave(_ sender: Any) {

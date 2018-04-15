@@ -24,4 +24,11 @@ struct SegueInfo {
     var Heavy: String
     var Mild: String
     var Low: String
+    var trafficStatus: String
+    var weatherStatus: String
+    var destinationLocation: String
+    var sourceLocation: String
+    var locType: String
+    var maxDelay: String
+    var midDelay: String
 }

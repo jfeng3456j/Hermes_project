@@ -30,6 +30,7 @@ class MainAlarmViewController: UITableViewController{
     var alarmScheduler: AlarmSchedulerDelegate = Scheduler()
     var alarmModel: Alarms = Alarms()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         alarmScheduler.checkNotification()
@@ -91,7 +92,14 @@ class MainAlarmViewController: UITableViewController{
                 Wind: alarmModel.alarms[indexPath.row].Wind,
                 Heavy: alarmModel.alarms[indexPath.row].Heavy,
                 Mild: alarmModel.alarms[indexPath.row].Mild,
-                Low: alarmModel.alarms[indexPath.row].Low
+                Low: alarmModel.alarms[indexPath.row].Low,
+                trafficStatus: alarmModel.alarms[indexPath.row].trafficStatus,
+                weatherStatus: alarmModel.alarms[indexPath.row].weatherStatus,
+                destinationLocation: alarmModel.alarms[indexPath.row].destinationLocation,
+                sourceLocation: alarmModel.alarms[indexPath.row].sourceLocation,
+                locType: alarmModel.alarms[indexPath.row].locType,
+                maxDelay: alarmModel.alarms[indexPath.row].maxDelay,
+                midDelay: alarmModel.alarms[indexPath.row].midDelay
                 ))
         }
     }
@@ -185,7 +193,7 @@ class MainAlarmViewController: UITableViewController{
         let addEditController = dist.topViewController as! AlarmAddEditViewController
         if segue.identifier == Id.addSegueIdentifier {
             addEditController.navigationItem.title = "Add Alarm"
-            addEditController.segueInfo = SegueInfo(curCellIndex: alarmModel.count, isEditMode: false, label: "Alarm", mediaLabel: "bell", mediaID: "", repeatWeekdays: [], enabled: false, snoozeEnabled: false, delay: "", autoTW: false, Rain: "", Snow:"",Sleet:"",Wind:"",Heavy:"",Mild:"",Low:"")
+            addEditController.segueInfo = SegueInfo(curCellIndex: alarmModel.count, isEditMode: false, label: "Alarm", mediaLabel: "bell", mediaID: "", repeatWeekdays: [], enabled: false, snoozeEnabled: false, delay: "", autoTW: false, Rain: "", Snow:"",Sleet:"",Wind:"",Heavy:"",Mild:"",Low:"", trafficStatus: "", weatherStatus: "", destinationLocation: "", sourceLocation: "", locType: "", maxDelay: "", midDelay: "")
             //addEditController.segueInfo = sender as! SegueInfo //added this instead
         }
         else if segue.identifier == Id.editSegueIdentifier {

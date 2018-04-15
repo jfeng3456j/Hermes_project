@@ -22,6 +22,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     //traffic weather var
     var autoTW: Bool = false
     
+    
     override func viewDidLoad() {
         
         
@@ -57,11 +58,8 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     @IBAction func saveEditAlarm(_ sender: AnyObject) {
         //set the alarm time from UIDatePicker
         
-        //let date = Scheduler.correctSecondComponent(date: datePicker.date)
-        
-        //chuan's code
-        let date:Date=self.datePicker.date;
-        
+        let date = Scheduler.correctSecondComponent(date: datePicker.date)
+        //let date:Date=self.datePicker.date;
         let index = segueInfo.curCellIndex
         var tempAlarm = Alarm()
         tempAlarm.date = date
@@ -76,13 +74,30 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         
         tempAlarm.delay = segueInfo.delay
         tempAlarm.autoTW = segueInfo.autoTW
+        tempAlarm.Rain = segueInfo.delay
+        tempAlarm.Snow = segueInfo.Snow
+        tempAlarm.Sleet = segueInfo.Sleet
+        tempAlarm.Wind = segueInfo.Wind
+        tempAlarm.Heavy = segueInfo.Heavy
+        tempAlarm.Mild = segueInfo.Mild
+        tempAlarm.Low = segueInfo.Low
+        tempAlarm.trafficStatus = segueInfo.trafficStatus
+        tempAlarm.weatherStatus = segueInfo.weatherStatus
+        tempAlarm.destinationLocation = segueInfo.destinationLocation
+        tempAlarm.sourceLocation = segueInfo.sourceLocation
+        tempAlarm.locType = segueInfo.locType
+        
         
 
         if segueInfo.isEditMode {
             alarmModel.alarms[index] = tempAlarm
+           
         }
         else {
+            
+        
             alarmModel.alarms.append(tempAlarm)
+            
         }
         self.performSegue(withIdentifier: Id.saveSegueIdentifier, sender: self)
         
