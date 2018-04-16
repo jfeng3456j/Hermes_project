@@ -154,9 +154,10 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
                 self.sourceLocation = self.coordinateB
             
             }
-            
+            else {
+                print (error?.localizedDescription ?? "error")
+                searchBar.backgroundColor = UIColor.red
         }
     }
-        
-        
+}
 }
