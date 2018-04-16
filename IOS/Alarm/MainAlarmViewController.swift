@@ -42,6 +42,8 @@ class MainAlarmViewController: UITableViewController{
         alarmModel = Alarms()
         tableView.reloadData()
         //dynamically append the edit button
+        
+        print(alarmModel.alarms)
         if alarmModel.count != 0 {
             self.navigationItem.leftBarButtonItem = editButtonItem
         }
@@ -99,7 +101,9 @@ class MainAlarmViewController: UITableViewController{
                 sourceLocation: alarmModel.alarms[indexPath.row].sourceLocation,
                 locType: alarmModel.alarms[indexPath.row].locType,
                 maxDelay: alarmModel.alarms[indexPath.row].maxDelay,
-                midDelay: alarmModel.alarms[indexPath.row].midDelay
+                midDelay: alarmModel.alarms[indexPath.row].midDelay,
+                strSrcLoc: alarmModel.alarms[indexPath.row].strSrcLoc,
+                strDesLoc: alarmModel.alarms[indexPath.row].strDesLoc
                 ))
         }
     }
@@ -119,6 +123,7 @@ class MainAlarmViewController: UITableViewController{
         str.addAttributes(timeAttr, range: NSMakeRange(0, str.length-2))
         cell!.textLabel?.attributedText = str
         cell!.detailTextLabel?.text = alarm.label
+        
         //append switch button
         let sw = UISwitch(frame: CGRect())
         sw.transform = CGAffineTransform(scaleX: 0.9, y: 0.9);
@@ -193,7 +198,7 @@ class MainAlarmViewController: UITableViewController{
         let addEditController = dist.topViewController as! AlarmAddEditViewController
         if segue.identifier == Id.addSegueIdentifier {
             addEditController.navigationItem.title = "Add Alarm"
-            addEditController.segueInfo = SegueInfo(curCellIndex: alarmModel.count, isEditMode: false, label: "Alarm", mediaLabel: "bell", mediaID: "", repeatWeekdays: [], enabled: false, snoozeEnabled: false, delay: "", autoTW: false, Rain: "", Snow:"",Sleet:"",Wind:"",Heavy:"",Mild:"",Low:"", trafficStatus: "", weatherStatus: "", destinationLocation: "", sourceLocation: "", locType: "", maxDelay: "", midDelay: "")
+            addEditController.segueInfo = SegueInfo(curCellIndex: alarmModel.count, isEditMode: false, label: "Alarm", mediaLabel: "bell", mediaID: "", repeatWeekdays: [], enabled: false, snoozeEnabled: false, delay: "", autoTW: false, Rain: "", Snow:"",Sleet:"",Wind:"",Heavy:"",Mild:"",Low:"", trafficStatus: "", weatherStatus: "", destinationLocation: "", sourceLocation: "", locType: "", maxDelay: "", midDelay: "", strSrcLoc: "", strDesLoc: "" )
             //addEditController.segueInfo = sender as! SegueInfo //added this instead
         }
         else if segue.identifier == Id.editSegueIdentifier {

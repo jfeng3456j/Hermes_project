@@ -31,4 +31,8 @@ struct SegueInfo {
     var locType: String
     var maxDelay: String
     var midDelay: String
+    
+    var strSrcLoc: String
+    var strDesLoc: String
+    
 }

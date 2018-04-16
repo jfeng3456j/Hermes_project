@@ -14,13 +14,14 @@ import Foundation
 
 class LocationViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate {
     var locationManager:CLLocationManager!
-    var coordinateA: String!
+    
+    
     var coordinateB: String!
     var bPoint = MKPointAnnotation()
     var userLocation:CLLocation!
     
-    var stringCustLoc: String!
-    var coordCustLoc: String!
+    var strSrcLoc: String!
+    var sourceLocation: String!
     
     var saved: DarwinBoolean = false
     
@@ -32,7 +33,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
     }
     
     @IBAction func goBackAndSave(_ sender: Any) {
-        if (coordCustLoc == nil){
+        if (sourceLocation == nil){
             //pop up box error
             // create the alert
             let alert = UIAlertController(title: "Error", message: "Location cannot be empty", preferredStyle: UIAlertControllerStyle.alert)
@@ -46,16 +47,20 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
         }else{
             //send over variables
             // create the alert
-            let alert = UIAlertController(title: "Success!", message: "Destination Location set as: \(stringCustLoc)", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Success!", message: "Source Location set as: \(strSrcLoc)", preferredStyle: UIAlertControllerStyle.alert)
             
             // add an action (button)
             //alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             
             // show the alert
             self.present(alert, animated: true,  completion: {
+                
                 sleep(2)
                 self.dismiss(animated:true, completion: {
+                    LabelEditViewController.GlobalVariable.srcName = self.strSrcLoc
+                    LabelEditViewController.GlobalVariable.srcCoord = self.sourceLocation
                     self.dismiss(animated: true)
+ 
                 })
                 
             })
@@ -76,6 +81,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
         super.viewDidLoad()
         print("View Loaded")
          destinationSearch.delegate = self
+        destinationSearch.text = LabelEditViewController.GlobalVariable.srcName
     }
     
     
@@ -144,8 +150,8 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
                 
                 
                 self.coordinateB = String(ano.coordinate.latitude) + "," + String(ano.coordinate.longitude)
-                self.stringCustLoc = trunc
-                self.coordCustLoc = self.coordinateB
+                self.strSrcLoc = trunc
+                self.sourceLocation = self.coordinateB
             
             }
             

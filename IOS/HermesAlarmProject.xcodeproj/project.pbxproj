@@ -144,11 +144,11 @@
 			children = (
 				9EEEC58B1BC641BF00459CF7 /* MainAlarmViewController.swift */,
 				9EED78991AA36C7900961BC2 /* AlarmAddEditViewController.swift */,
-				9E16062B1C62358F009B2407 /* MediaViewController.swift */,
-				9E9BEE061BCF8FF8000CF364 /* WeekdaysViewController.swift */,
 				9E603F581BD7CA6600303E93 /* LabelEditViewController.swift */,
-				52D1FD2D204E1DBC0015F189 /* SwiftyJSON.swift */,
 				523397B9208314110053139E /* LocationViewController.swift */,
+				9E9BEE061BCF8FF8000CF364 /* WeekdaysViewController.swift */,
+				52D1FD2D204E1DBC0015F189 /* SwiftyJSON.swift */,
+				9E16062B1C62358F009B2407 /* MediaViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

@@ -10,15 +10,26 @@ import Foundation
 
 class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISearchBarDelegate, UITextFieldDelegate{
     
-    var delay, Rain, Snow, Sleet, Wind, Heavy, Mild, Low, locType, destinationLocation, sourceLocation: String!
     
+    @IBOutlet weak var RainPrty: UITextField!
+    @IBOutlet weak var SleetPrty: UITextField!
+    @IBOutlet weak var SnowPrty: UITextField!
+    @IBOutlet weak var WindPrty: UITextField!
+    @IBOutlet weak var HeavyPrty: UITextField!
+    @IBOutlet weak var MildPrty: UITextField!
+    @IBOutlet weak var LowPrty: UITextField!
+    
+    
+    var delay, Rain, Snow, Sleet, Wind, Heavy, Mild, Low, locType, destinationLocation, sourceLocation, strSrcLoc,strDesLoc : String!
+    struct GlobalVariable{
+        static var srcName = String()
+        static var srcCoord = String()
+    }
     @IBOutlet weak var coordinateBIndicator: UILabel!
-    
-    @IBOutlet weak var currButton: UIButton!
     @IBOutlet weak var smartButton: UIButton!
     @IBOutlet weak var custButton: UIButton!
     
-    
+    var segueInfo: SegueInfo!
     
     //variables
     var label: String!
@@ -33,19 +44,68 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
     @IBOutlet weak var labelTextField: UITextField!
     
     @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var destination: UITextField!
+   
     @IBOutlet weak var saveLoadingIndicator: UIActivityIndicatorView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        LabelEditViewController.GlobalVariable.srcName = strSrcLoc
+        LabelEditViewController.GlobalVariable.srcCoord = sourceLocation
+        /*
+        if (segueInfo.isEditMode){//if we are editing an old alarm, access the old alarm's details data
+           
+        }else{//default when we are not editing an old alarm
+
+
+        }
+        */
+
         
         labelTextField.becomeFirstResponder()
         // Do any additional setup after loading the view.
         self.labelTextField.delegate = self
      //   self.currLocation.delegate = self
+        self.RainPrty.delegate = self
+        self.SleetPrty.delegate = self
+        self.SnowPrty.delegate = self
+        self.WindPrty.delegate = self
+        self.HeavyPrty.delegate = self
+        self.MildPrty.delegate = self
+        self.LowPrty.delegate = self
+        
+        
+        
         
         labelTextField.text = label
+        RainPrty.text = Rain
+        SleetPrty.text = Sleet
+        SnowPrty.text = Snow
+        WindPrty.text = Wind
+        HeavyPrty.text = Heavy
+        MildPrty.text = Mild
+        LowPrty.text = Low
+        
+        if (locType == "smart"){
+            smartButton.backgroundColor = UIColor.darkGray
+            custButton.backgroundColor = UIColor.clear
+            
+        }
+        if (locType == "custom"){
+            smartButton.backgroundColor = UIColor.clear
+            custButton.backgroundColor = UIColor.darkGray
+        }
+        print(strDesLoc)
+        if ((strDesLoc) != ""){
+            self.coordinateBIndicator.backgroundColor = UIColor.green
+            self.coordinateBIndicator.textColor = UIColor.yellow
+            self.coordinateBIndicator.text = "Valid"
+        searchBar.text = strDesLoc
+        }else{
+            coordinateBIndicator.backgroundColor = UIColor.red
+            coordinateBIndicator.textColor = UIColor.green
+            coordinateBIndicator.text = "Invalid"
+        }
         //currLocation.text = "location"
         
         //defined in UITextInputTraits protocol
@@ -55,6 +115,8 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         
         
         searchBar.delegate = self
+        
+
         
     }
     
@@ -66,15 +128,13 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
 
     
     override func viewWillAppear(_ animated: Bool) {
-        print("penis View Will Appear")
+        
         saveLoadingIndicator.hidesWhenStopped = true
       
-        coordinateBIndicator.backgroundColor = UIColor.red
-        coordinateBIndicator.textColor = UIColor.green
-        coordinateBIndicator.text = "Invalid"
+
         coordinateBIndicator.adjustsFontSizeToFitWidth = true
         coordinateBIndicator.textAlignment = NSTextAlignment.center
-        
+    
         
         super.viewWillAppear(animated)
         determineMyCurrentLocation()
@@ -180,6 +240,8 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
                 
                 self.coordinateB = String(ano.coordinate.latitude) + "," + String(ano.coordinate.longitude)
                 
+                self.destinationLocation = self.coordinateB
+                self.strDesLoc = trunc
                 
                 self.coordinateBIndicator.backgroundColor = UIColor.green
                 self.coordinateBIndicator.textColor = UIColor.yellow
@@ -204,21 +266,19 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         return false
     }
     
-    @IBAction func currSelect(_ sender: Any) {
-        currButton.backgroundColor = UIColor.darkGray
-        smartButton.backgroundColor = UIColor.clear
-        custButton.backgroundColor = UIColor.clear
-    }
-    
+
     
     @IBAction func smartSelect(_ sender: Any) {
         smartButton.backgroundColor = UIColor.darkGray
-        currButton.backgroundColor = UIColor.clear
         custButton.backgroundColor = UIColor.clear
+        self.locType = "smart"
     }
     
     //set location buttons event handler
     @IBAction func custSelect(_ sender: Any) {
+        self.locType = "custom"
+        smartButton.backgroundColor = UIColor.clear
+        custButton.backgroundColor = UIColor.darkGray
         // Create a standard UIAlertController
         /*
         let alertController = UIAlertController(title: "Enter Location", message: "", preferredStyle: .alert)
@@ -253,6 +313,12 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
     
     //post to php
     @IBAction func clickSave(_ sender: Any) {
+        
+        self.strSrcLoc = LabelEditViewController.GlobalVariable.srcName
+        self.sourceLocation = LabelEditViewController.GlobalVariable.srcCoord
+        
+    
+        
         if (coordinateB != nil){
         saveLoadingIndicator.startAnimating()
         let url = URL(string: "http://ec2-18-217-212-185.us-east-2.compute.amazonaws.com/~ec2-user/Hermes/getAlarmInfo.php/")!
@@ -278,10 +344,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
                 //  print(json["netDelay"].double)
                 // print(json["traffic"]["methodOfTrans"].string)
                 self.delay = json["netDelay"].stringValue
-                print("0:  \(json["netDelay"])")
-                
-                print("1: \(self.delay)" )
-                print("2: \(self.label)" )
+
 
                 /*
                 
@@ -290,6 +353,20 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
                 }
  */
             }
+            
+            //take in user weather input
+        
+            
+            self.Rain = self.RainPrty.text
+            self.Sleet = self.SleetPrty.text
+            self.Snow = self.SnowPrty.text
+            self.Wind = self.WindPrty.text
+            
+            //take in user traffic input
+            self.Heavy = self.HeavyPrty.text
+            self.Mild = self.MildPrty.text
+            self.Low = self.LowPrty.text
+            
             }.resume()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute:{

@@ -22,8 +22,11 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     //traffic weather var
     var autoTW: Bool = false
     
+    //isEditMode
+    var isEditMode: Bool = false
     
     override func viewDidLoad() {
+       self.isEditMode =  segueInfo.isEditMode
         
         
         super.viewDidLoad()
@@ -35,6 +38,8 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         tableView.reloadData()
         snoozeEnabled = segueInfo.snoozeEnabled
         autoTW = segueInfo.autoTW
+        
+        
         if ((segueInfo.delay != nil) && (segueInfo.delay != "")  ){
         //var convertedTime = getNumberFrom(string: segueInfo.delay)
         
@@ -48,6 +53,8 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         
         alertMessage (message: "Traffic and Weather Delays Expected: \(convertedTimeHours) hours \(convertedTimeMinutes) minutes")
         }
+        
+        
         super.viewWillAppear(animated)
     }
 
@@ -74,7 +81,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         
         tempAlarm.delay = segueInfo.delay
         tempAlarm.autoTW = segueInfo.autoTW
-        tempAlarm.Rain = segueInfo.delay
+        tempAlarm.Rain = segueInfo.Rain
         tempAlarm.Snow = segueInfo.Snow
         tempAlarm.Sleet = segueInfo.Sleet
         tempAlarm.Wind = segueInfo.Wind
@@ -86,9 +93,10 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         tempAlarm.destinationLocation = segueInfo.destinationLocation
         tempAlarm.sourceLocation = segueInfo.sourceLocation
         tempAlarm.locType = segueInfo.locType
+        tempAlarm.strDesLoc = segueInfo.strDesLoc
+        tempAlarm.strSrcLoc = segueInfo.strSrcLoc
         
-        
-
+     
         if segueInfo.isEditMode {
             alarmModel.alarms[index] = tempAlarm
            
@@ -257,6 +265,30 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
             let dist = segue.destination as! LabelEditViewController
             dist.label = segueInfo.label
             dist.delay = segueInfo.delay
+            
+            //names
+            dist.strDesLoc = segueInfo.strDesLoc
+            dist.strSrcLoc = segueInfo.strSrcLoc
+            
+            //coordinates
+            dist.destinationLocation = segueInfo.destinationLocation
+            dist.sourceLocation = segueInfo.sourceLocation
+            
+            //locType
+            dist.locType = segueInfo.locType
+            
+            //Weather Conditions
+            dist.Rain = segueInfo.Rain
+            dist.Sleet = segueInfo.Sleet
+            dist.Snow = segueInfo.Snow
+            dist.Wind = segueInfo.Wind
+            
+            //Traffic
+            dist.Heavy = segueInfo.Heavy
+            dist.Mild = segueInfo.Mild
+            dist.Low = segueInfo.Low
+            
+            
         }
         else if segue.identifier == Id.weekdaysSegueIdentifier {
             let dist = segue.destination as! WeekdaysViewController
@@ -268,6 +300,27 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         let src = segue.source as! LabelEditViewController
         segueInfo.label = src.label
         segueInfo.delay = src.delay
+        
+        
+        segueInfo.strDesLoc = src.strDesLoc
+        segueInfo.strSrcLoc = src.strSrcLoc
+        
+        segueInfo.destinationLocation = src.destinationLocation
+        segueInfo.sourceLocation = src.sourceLocation
+        
+        segueInfo.locType = src.locType
+        
+        segueInfo.Rain = src.Rain
+        segueInfo.Snow = src.Snow
+        segueInfo.Wind = src.Wind
+        segueInfo.Sleet = src.Sleet
+        
+        segueInfo.Heavy = src.Heavy
+        segueInfo.Mild = src.Mild
+        
+       
+        segueInfo.Low = src.Low
+        
     }
     
     @IBAction func unwindFromWeekdaysView(_ segue: UIStoryboardSegue) {
