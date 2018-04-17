@@ -41,7 +41,7 @@ struct Alarm: PropertyReflectable {
     
     init(){}
     
-    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String, autoTW: Bool, Rain: String, Snow: String, Sleet: String, Wind: String, Heavy: String, Mild: String, Low: String, trafficStatus: String, weatherStatus: String, destinationLocation: String, sourceLocation: String, locType: String, strSrcLoc: String, strDesLoc: String)  {
+    init(date:Date, enabled:Bool, snoozeEnabled:Bool, repeatWeekdays:[Int], uuid:String, mediaID:String, mediaLabel:String, label:String, onSnooze: Bool, delay: String, autoTW: Bool, Rain: String, Snow: String, Sleet: String, Wind: String, Heavy: String, Mild: String, Low: String, trafficStatus: String, weatherStatus: String, destinationLocation: String, sourceLocation: String, locType: String, strSrcLoc: String, strDesLoc: String, maxDelay: String)  {
         self.date = date
         self.enabled = enabled
         self.snoozeEnabled = snoozeEnabled
@@ -68,6 +68,7 @@ struct Alarm: PropertyReflectable {
         self.locType = locType
         self.strSrcLoc = strSrcLoc
         self.strDesLoc = strDesLoc
+        self.maxDelay = maxDelay
     }
     
     init(_ dict: PropertyReflectable.RepresentationType){

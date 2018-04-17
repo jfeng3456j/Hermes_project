@@ -45,12 +45,81 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
         var isSnooze: Bool = false
         var soundName: String = ""
         var index: Int = -1
+        
+        var Sleet: Int = 0
+        var Wind: Int = 0
+        var Snow: Int = 0
+        var Rain: Int = 0
+        
+        var Heavy: Int = 0
+        var Mild: Int = 0
+        var Low: Int = 0
+        
+        var sourceLocation: String = ""
+        var destinationLocation: String = ""
+        
+        var origDate: Date
+        
         if let userInfo = notification.userInfo {
             isSnooze = userInfo["snooze"] as! Bool
             soundName = userInfo["soundName"] as! String
             index = userInfo["index"] as! Int
+            
+            Sleet = userInfo["Sleet"] as! Int
+            Wind = userInfo["Wind"] as! Int
+            Snow = userInfo["Snow"] as! Int
+            Rain = userInfo["Rain"] as! Int
+            
+            Heavy = userInfo["Heavy"] as! Int
+            Mild = userInfo["Mild"] as! Int
+            Low = userInfo["Low"] as! Int
+            
+            sourceLocation = userInfo["sourceLocation"] as! String
+            destinationLocation = userInfo["destinationLocation"] as! String
+            
+            origDate = userInfo["origDate"] as! Date
         }
+        print(sourceLocation)
+        print(destinationLocation)
         
+        var coordinateA = sourceLocation
+        var coordinateB = destinationLocation
+        let url = URL(string: "http://ec2-18-217-212-185.us-east-2.compute.amazonaws.com/~ec2-user/Hermes/getAlarmInfo.php/")!
+        let postString = "coordinateA=" + coordinateA + "&coordinateB=" + coordinateB + "&deviceID=374a9s9dfs&alarmNum=alarm2"
+        print("@@@@@@@@@@@@@@\(postString)@@@@@@@@@@@@@@")
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpBody = postString.data(using: .utf8)
+        
+        _ = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {
+                print("error1=\(String(describing: error))")
+                return
+            }
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(String(describing: response))")
+                return
+            }
+            // https://www.hackingwithswift.com/example-code/libraries/how-to-parse-json-using-swiftyjson
+            if let json = try? JSON(data: data) {
+                print("This works!!!!!!!!!!!!!! :D :D :D :D")
+                //  print(json["netDelay"].double)
+                // print(json["traffic"]["methodOfTrans"].string)
+                var weather = json["traffic"]["trafficAmount"].stringValue
+                var traffic = json["weather"]["weatherType"].stringValue
+                
+                print("weather: \(weather)")
+                print("traffic: \(traffic)")
+                /*
+                 DispatchQueue.main.async{
+                 //self.destination.text = "Traffice Delay: \(self.delay)"
+                 }
+                 */
+            }
+            
+        }.resume()
         playSound(soundName)
         //schedule notification for snooze
         if isSnooze {

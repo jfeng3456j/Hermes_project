@@ -44,6 +44,7 @@ class MainAlarmViewController: UITableViewController{
         //dynamically append the edit button
         
         print(alarmModel.alarms)
+        
         if alarmModel.count != 0 {
             self.navigationItem.leftBarButtonItem = editButtonItem
         }
@@ -154,8 +155,10 @@ class MainAlarmViewController: UITableViewController{
         alarmModel.alarms[index].enabled = sender.isOn
         if sender.isOn {
             print("switch on")
-            alarmScheduler.setNotificationWithDate(alarmModel.alarms[index].date, onWeekdaysForNotify: alarmModel.alarms[index].repeatWeekdays, snoozeEnabled: alarmModel.alarms[index].snoozeEnabled, onSnooze: false, soundName: alarmModel.alarms[index].mediaLabel, index: index
-                
+            alarmScheduler.setNotificationWithDate(alarmModel.alarms[index].date, onWeekdaysForNotify: alarmModel.alarms[index].repeatWeekdays, snoozeEnabled: alarmModel.alarms[index].snoozeEnabled, onSnooze: false, soundName: alarmModel.alarms[index].mediaLabel, index: index, maxDelay: Int(alarmModel.alarms[index].maxDelay)!, Rain: Int(alarmModel.alarms[index].Rain)!, Snow: Int(alarmModel.alarms[index].Snow)!, Sleet: Int(alarmModel.alarms[index].Sleet)!, Wind: Int(alarmModel.alarms[index].Wind)!, Heavy: Int(alarmModel.alarms[index].Heavy)!, Mild: Int(alarmModel.alarms[index].Mild)!
+                , Low: Int(alarmModel.alarms[index].Low)!
+                , AutoTW: alarmModel.alarms[index].autoTW,
+                  sourceLocation: alarmModel.alarms[index].sourceLocation, destinationLocation: alarmModel.alarms[index].destinationLocation
                 //need to add traffic and weather data here
             )
             tableView.reloadData()

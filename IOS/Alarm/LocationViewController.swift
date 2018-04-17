@@ -16,7 +16,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
     var locationManager:CLLocationManager!
     
     
-   
+    
     @IBOutlet weak var locIndicator: UILabel!
     var coordinateB: String!
     var bPoint = MKPointAnnotation()
@@ -29,7 +29,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
     @IBOutlet weak var destinationSearch: UISearchBar!
     
     @IBAction func goBack(_ sender: Any) {
-       // _ = navigationController?.popViewController(animated: true)
+        // _ = navigationController?.popViewController(animated: true)
         self.dismiss(animated:true)
     }
     
@@ -48,7 +48,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
         }else{
             //send over variables
             // create the alert
-            let alert = UIAlertController(title: "Success!", message: "Source Location set as: \(strSrcLoc)", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Success!", message: "Source Location set as: \(String(strSrcLoc))", preferredStyle: UIAlertControllerStyle.alert)
             
             // add an action (button)
             //alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -61,23 +61,23 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
                     LabelEditViewController.GlobalVariable.srcName = self.strSrcLoc
                     LabelEditViewController.GlobalVariable.srcCoord = self.sourceLocation
                     self.dismiss(animated: true)
- 
+                    
                 })
                 
             })
             saved = true
             //(() -> Void)?
             /*
-            self.dismiss(animated: true, completion: {
-                self.dismiss(animated:true)
-            })
- */
-          //  self.dismiss(animated:true)
+             self.dismiss(animated: true, completion: {
+             self.dismiss(animated:true)
+             })
+             */
+            //  self.dismiss(animated:true)
             
         }
     }
     
-
+    
     
     
     
@@ -102,7 +102,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
             self.locIndicator.backgroundColor = UIColor.green
             self.locIndicator.textColor = UIColor.yellow
             self.locIndicator.text = "Valid"
-          
+            
             
         }else{
             
@@ -157,7 +157,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
                     corrText += "\((placemarks?.postalCode)!), "
                 }
                 
-
+                
                 let trunc = String(corrText.characters.dropLast(2))
                 
                 searchBar.text = trunc
@@ -170,16 +170,16 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
                 self.locIndicator.backgroundColor = UIColor.green
                 self.locIndicator.textColor = UIColor.black
                 self.locIndicator.text = "Valid"
-            
+                
             }
             else {
                 print (error?.localizedDescription ?? "error")
                 self.locIndicator.backgroundColor = UIColor.red
                 self.locIndicator.textColor = UIColor.green
                 self.locIndicator.text = "Invalid"
+            }
         }
+        
+        
     }
-        
-        
-}
 }

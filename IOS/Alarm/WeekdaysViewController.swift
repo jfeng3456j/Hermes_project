@@ -16,12 +16,12 @@ class WeekdaysViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         performSegue(withIdentifier: Id.weekdaysUnwindIdentifier, sender: self)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
@@ -33,7 +33,7 @@ class WeekdaysViewController: UITableViewController {
         }
         return cell
     }
-
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)!
