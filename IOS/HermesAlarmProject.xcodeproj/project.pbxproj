@@ -10,6 +10,7 @@
 		52163DC5204F174700BB3FC7 /* herme3.png in Resources */ = {isa = PBXBuildFile; fileRef = 52163DC4204F174700BB3FC7 /* herme3.png */; };
 		52313591204DAB7A00B98ABB /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52313590204DAB7A00B98ABB /* MapKit.framework */; };
 		523397BA208314110053139E /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523397B9208314110053139E /* LocationViewController.swift */; };
+		52584E9720852C750065EE2C /* MaxLength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52584E9620852C750065EE2C /* MaxLength.swift */; };
 		52AC27C8204ED0140057D90F /* herme.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AC27C7204ED0140057D90F /* herme.png */; };
 		52AC27CA204ED9BF0057D90F /* herme2.png in Resources */ = {isa = PBXBuildFile; fileRef = 52AC27C9204ED9BF0057D90F /* herme2.png */; };
 		52D1FD2E204E1DBC0015F189 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D1FD2D204E1DBC0015F189 /* SwiftyJSON.swift */; };
@@ -51,6 +52,7 @@
 		52163DC4204F174700BB3FC7 /* herme3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = herme3.png; sourceTree = "<group>"; };
 		52313590204DAB7A00B98ABB /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		523397B9208314110053139E /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
+		52584E9620852C750065EE2C /* MaxLength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaxLength.swift; sourceTree = "<group>"; };
 		52640F90204CE4DD003F155A /* HermesAlarmProject */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = HermesAlarmProject; sourceTree = "<group>"; };
 		52AC27C7204ED0140057D90F /* herme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = herme.png; sourceTree = "<group>"; };
 		52AC27C9204ED9BF0057D90F /* herme2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = herme2.png; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				9E9BEE061BCF8FF8000CF364 /* WeekdaysViewController.swift */,
 				52D1FD2D204E1DBC0015F189 /* SwiftyJSON.swift */,
 				9E16062B1C62358F009B2407 /* MediaViewController.swift */,
+				52584E9620852C750065EE2C /* MaxLength.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				523397BA208314110053139E /* LocationViewController.swift in Sources */,
 				77570F6B1E3EEA75005E2923 /* PropertyReflectable.swift in Sources */,
 				9E9BEE071BCF8FF8000CF364 /* WeekdaysViewController.swift in Sources */,
+				52584E9720852C750065EE2C /* MaxLength.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

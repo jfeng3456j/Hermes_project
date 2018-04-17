@@ -16,10 +16,11 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
     var locationManager:CLLocationManager!
     
     
+   
+    @IBOutlet weak var locIndicator: UILabel!
     var coordinateB: String!
     var bPoint = MKPointAnnotation()
     var userLocation:CLLocation!
-    
     var strSrcLoc: String!
     var sourceLocation: String!
     
@@ -77,12 +78,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
     }
     
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("View Loaded")
-         destinationSearch.delegate = self
-        destinationSearch.text = LabelEditViewController.GlobalVariable.srcName
-    }
+    
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,6 +88,30 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
             self.dismiss(animated:true)
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("View Loaded")
+        destinationSearch.delegate = self
+        destinationSearch.text = LabelEditViewController.GlobalVariable.srcName
+        
+        
+        if ((strSrcLoc) != ""){
+            
+            self.locIndicator.backgroundColor = UIColor.green
+            self.locIndicator.textColor = UIColor.yellow
+            self.locIndicator.text = "Valid"
+            destinationSearch.text = strSrcLoc
+            
+        }else{
+            
+            locIndicator.backgroundColor = UIColor.red
+            locIndicator.textColor = UIColor.green
+            locIndicator.text = "Invalid"
+        }
+    }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         print("View Will Appear")
         view.backgroundColor = UIColor(white: 1, alpha: 0.9)
@@ -136,28 +156,29 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
                     corrText += "\((placemarks?.postalCode)!), "
                 }
                 
-                
-                
+
                 let trunc = String(corrText.characters.dropLast(2))
-                
                 
                 searchBar.text = trunc
                 
                 //get coordinates
                 ano.coordinate = (placemarks?.location?.coordinate)!
-                //ano.title = self.searchBarMap.text!
-                //self.destination.text = String(ano.coordinate.longitude) + "," + String(ano.coordinate.latitude)
-                
-                
                 self.coordinateB = String(ano.coordinate.latitude) + "," + String(ano.coordinate.longitude)
                 self.strSrcLoc = trunc
                 self.sourceLocation = self.coordinateB
+                self.locIndicator.backgroundColor = UIColor.green
+                self.locIndicator.textColor = UIColor.black
+                self.locIndicator.text = "Valid"
             
             }
             else {
                 print (error?.localizedDescription ?? "error")
-                searchBar.backgroundColor = UIColor.red
+                self.locIndicator.backgroundColor = UIColor.red
+                self.locIndicator.textColor = UIColor.green
+                self.locIndicator.text = "Invalid"
         }
     }
+        
+        
 }
 }

@@ -20,6 +20,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
     @IBOutlet weak var LowPrty: UITextField!
     
     
+    
     var delay, Rain, Snow, Sleet, Wind, Heavy, Mild, Low, locType, destinationLocation, sourceLocation, strSrcLoc,strDesLoc : String!
     struct GlobalVariable{
         static var srcName = String()
@@ -65,7 +66,8 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         labelTextField.becomeFirstResponder()
         // Do any additional setup after loading the view.
         self.labelTextField.delegate = self
-     //   self.currLocation.delegate = self
+        
+        //self.currLocation.delegate = self
         self.RainPrty.delegate = self
         self.SleetPrty.delegate = self
         self.SnowPrty.delegate = self
@@ -74,9 +76,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         self.MildPrty.delegate = self
         self.LowPrty.delegate = self
         
-        
-        
-        
+
         labelTextField.text = label
         RainPrty.text = Rain
         SleetPrty.text = Sleet
@@ -95,12 +95,15 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
             smartButton.backgroundColor = UIColor.clear
             custButton.backgroundColor = UIColor.darkGray
         }
+        
         print(strDesLoc)
+        
         if ((strDesLoc) != ""){
+            
             self.coordinateBIndicator.backgroundColor = UIColor.green
             self.coordinateBIndicator.textColor = UIColor.yellow
             self.coordinateBIndicator.text = "Valid"
-        searchBar.text = strDesLoc
+            searchBar.text = strDesLoc
         }else{
             coordinateBIndicator.backgroundColor = UIColor.red
             coordinateBIndicator.textColor = UIColor.green
@@ -140,6 +143,10 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         determineMyCurrentLocation()
         
     }
+    
+    
+    //format weather and traffic textbox to numeric
+   
     
     func determineMyCurrentLocation() {
         locationManager = CLLocationManager()
@@ -244,7 +251,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
                 self.strDesLoc = trunc
                 
                 self.coordinateBIndicator.backgroundColor = UIColor.green
-                self.coordinateBIndicator.textColor = UIColor.yellow
+                self.coordinateBIndicator.textColor = UIColor.black
                 self.coordinateBIndicator.text = "Valid"
 
             }
@@ -259,10 +266,6 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        /*
-
-*/
-
         return false
     }
     
