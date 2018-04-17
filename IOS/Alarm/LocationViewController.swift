@@ -95,13 +95,14 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate, UISea
         destinationSearch.delegate = self
         destinationSearch.text = LabelEditViewController.GlobalVariable.srcName
         
+        print(LabelEditViewController.GlobalVariable.srcName)
         
-        if ((strSrcLoc) != ""){
+        if ((LabelEditViewController.GlobalVariable.srcName) != ""){
             
             self.locIndicator.backgroundColor = UIColor.green
             self.locIndicator.textColor = UIColor.yellow
             self.locIndicator.text = "Valid"
-            destinationSearch.text = strSrcLoc
+          
             
         }else{
             

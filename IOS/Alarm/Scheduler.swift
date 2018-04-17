@@ -55,6 +55,7 @@ class Scheduler : AlarmSchedulerDelegate
     
     private func correctDate(_ date: Date, onWeekdaysForNotify weekdays:[Int]) -> [Date]
     {
+       
         //seting the date
         var correctedDate: [Date] = [Date]()
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
@@ -105,17 +106,23 @@ class Scheduler : AlarmSchedulerDelegate
                 wdDate = Scheduler.correctSecondComponent(date: wdDate, calendar: calendar)
                 correctedDate.append(wdDate)
             }
+             print("Inside correcteDate:  \(correctedDate)")
             return correctedDate
         }
     }
     
     public static func correctSecondComponent(date: Date, calendar: Calendar = Calendar(identifier: Calendar.Identifier.gregorian))->Date {
+        //second to alarm time
+        
+        
         let second = calendar.component(.second, from: date)
+        print("calendar second \(second)")
         let d = (calendar as NSCalendar).date(byAdding: NSCalendar.Unit.second, value: -second, to: date, options:.matchStrictly)!
         return d
     }
     
     internal func setNotificationWithDate(_ date: Date, onWeekdaysForNotify weekdays:[Int], snoozeEnabled:Bool,  onSnooze: Bool, soundName: String, index: Int) {
+        print("setNotificationWithDate")
         let AlarmNotification: UILocalNotification = UILocalNotification()
         AlarmNotification.alertBody = "Wake Up!"
         AlarmNotification.alertAction = "Open App"
@@ -134,6 +141,7 @@ class Scheduler : AlarmSchedulerDelegate
         
         syncAlarmModel()
         for d in datesForNotification {
+            print("d: \(d)")
             if onSnooze {
                 alarmModel.alarms[index].date = Scheduler.correctSecondComponent(date: alarmModel.alarms[index].date)
             }

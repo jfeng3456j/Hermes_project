@@ -12,6 +12,8 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var tableView: UITableView!
     
+    var noTWLabel = ""
+    
     var alarmScheduler: AlarmSchedulerDelegate = Scheduler()
     var alarmModel: Alarms = Alarms()
     var segueInfo: SegueInfo!
@@ -20,7 +22,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     var enabled: Bool!
     
     //traffic weather var
-    var autoTW: Bool = false
+    var autoTW: Bool!
     
     //isEditMode
     var isEditMode: Bool = false
@@ -38,6 +40,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         tableView.reloadData()
         snoozeEnabled = segueInfo.snoozeEnabled
         autoTW = segueInfo.autoTW
+        
         
         
         if ((segueInfo.delay != nil) && (segueInfo.delay != "")  ){
@@ -96,6 +99,11 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         tempAlarm.strDesLoc = segueInfo.strDesLoc
         tempAlarm.strSrcLoc = segueInfo.strSrcLoc
         
+        //if user just wants a regular alarm with only a name
+        if (autoTW == false)
+        {
+            tempAlarm.label = self.noTWLabel
+        }
      
         if segueInfo.isEditMode {
             alarmModel.alarms[index] = tempAlarm
@@ -167,6 +175,8 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
             else if indexPath.row == 2 {
                 cell!.textLabel!.text = "Details"
                 cell!.detailTextLabel!.text = segueInfo.label
+                self.noTWLabel = cell!.detailTextLabel!.text!
+               
                 cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             }
             else if indexPath.row == 3 {
@@ -208,9 +218,55 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
                 cell?.setSelected(true, animated: false)
                 cell?.setSelected(false, animated: false)
             case 2:
+                if (autoTW){
                 performSegue(withIdentifier: Id.labelSegueIdentifier, sender: self)
                 cell?.setSelected(true, animated: false)
                 cell?.setSelected(false, animated: false)
+                }else{
+                    //Prompt User for information if the user does not want to have Traffic and weather
+                    let alertController = UIAlertController(title: "Enter Alarm Name", message: "", preferredStyle: .alert)
+                    
+                    // Add a textField to your controller, with a placeholder value & secure entry enabled
+                    
+                    alertController.addTextField { textField in
+                        textField.placeholder = "Alarm"
+                        textField.textAlignment = .center
+                    }
+                    
+                    // A cancel action
+                    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                        print("Canelled")
+                    }
+                    
+                    // This action handles your confirmation action
+                    let confirmAction = UIAlertAction(title: "Save", style: .default) { _ in
+                        if (alertController.textFields?.first?.text != ""){
+                            //if text is good
+                        print("Current location value: \(alertController.textFields?.first?.text ?? "None")")
+                        cell!.detailTextLabel!.text = alertController.textFields?.first?.text
+                            self.noTWLabel = (alertController.textFields?.first?.text)!
+                            print("noTWLabel: \(self.noTWLabel)")
+                        }else{
+                            let alert = UIAlertController(title: "Error", message: "Name is null", preferredStyle: UIAlertControllerStyle.alert)
+                            
+                            // add an action (button)
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                            
+                            // show the alert
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                    
+                    // Add the actions, the order here does not matter
+                    alertController.addAction(cancelAction)
+                    alertController.addAction(confirmAction)
+                    
+                    // Present to user
+                    present(alertController, animated: true, completion: nil)
+                    
+                    cell?.setSelected(true, animated: false)
+                    cell?.setSelected(false, animated: false)
+                }
             case 3:
                 performSegue(withIdentifier: Id.soundSegueIdentifier, sender: self)
                 cell?.setSelected(true, animated: false)
@@ -233,6 +289,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBAction func trafficWeatherTap (_ sender: UISwitch) {
         autoTW = sender.isOn
+        autoTW = true
     }
     
     
@@ -347,5 +404,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
             () -> Void in
         }
     }
+    
+    
     
 }

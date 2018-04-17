@@ -24,4 +24,6 @@ struct Id {
     
     static let destLocUnwindIdentifier = "destLocUnwindIdentifier"
     
+    static let noAutoTW = "noAutoTW"
+    
 }
