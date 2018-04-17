@@ -181,6 +181,7 @@ class MainAlarmViewController: UITableViewController{
                 //adjust saved index when row deleted
                 if sw.tag > index {
                     sw.tag -= 1
+                
                 }
             }
             if alarmModel.count == 0 {

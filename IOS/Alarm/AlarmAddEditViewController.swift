@@ -325,7 +325,8 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
             let dist = segue.destination as! LabelEditViewController
             dist.label = segueInfo.label
             dist.delay = segueInfo.delay
-            
+            dist.AutoTW = segueInfo.autoTW
+        
             //names
             dist.strDesLoc = segueInfo.strDesLoc
             dist.strSrcLoc = segueInfo.strSrcLoc
@@ -361,7 +362,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
         let src = segue.source as! LabelEditViewController
         segueInfo.label = src.label
         segueInfo.delay = src.delay
-        
+        segueInfo.autoTW = src.AutoTW
         
         segueInfo.strDesLoc = src.strDesLoc
         segueInfo.strSrcLoc = src.strSrcLoc

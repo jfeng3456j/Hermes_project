@@ -11,7 +11,7 @@ import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, AlarmApplicationDelegate{
-
+    var difference: Int = 0
     var window: UIWindow?
     var audioPlayer: AVAudioPlayer?
     let alarmScheduler: AlarmSchedulerDelegate = Scheduler()
@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         
         //show an alert when the alarms goes off
-        let storageController = UIAlertController(title: "Alarm", message: "Traffic and Weather Delays Expected:", preferredStyle: .alert)
+        let storageController = UIAlertController(title: "Alarm", message: "Time is up!", preferredStyle: .alert)
         var isSnooze: Bool = false
         var soundName: String = ""
         var index: Int = -1
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
         var sourceLocation: String = ""
         var destinationLocation: String = ""
         
-        var origDate: Date
+        var origDate: Date = Date()
         
         if let userInfo = notification.userInfo {
             isSnooze = userInfo["snooze"] as! Bool
@@ -79,8 +79,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
             
             origDate = userInfo["origDate"] as! Date
         }
-        print(sourceLocation)
-        print(destinationLocation)
+
         
         var coordinateA = sourceLocation
         var coordinateB = destinationLocation
@@ -104,11 +103,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
             }
             // https://www.hackingwithswift.com/example-code/libraries/how-to-parse-json-using-swiftyjson
             if let json = try? JSON(data: data) {
-                print("This works!!!!!!!!!!!!!! :D :D :D :D")
+                
                 //  print(json["netDelay"].double)
                 // print(json["traffic"]["methodOfTrans"].string)
-                var weather = json["traffic"]["trafficAmount"].stringValue
-                var traffic = json["weather"]["weatherType"].stringValue
+                var traffic = String(json["traffic"]["trafficAmount"].stringValue)
+                var weather = String(json["weather"]["weatherType"].stringValue)
                 
                 print("weather: \(weather)")
                 print("traffic: \(traffic)")
@@ -117,15 +116,83 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
                  //self.destination.text = "Traffice Delay: \(self.delay)"
                  }
                  */
+                var delay = 0
+                switch traffic {
+                case "Heavy"  :
+                    print("Heavy")
+                    delay += Heavy
+                    break
+                    
+                case "Mild" :
+                    print("Mild")
+                    delay += Mild
+                    break
+                    
+                case "Medium"  :
+                    print("Medium")
+                    delay += Mild
+                    break
+                    
+                case "Low" :
+                    print("Low")
+                    delay += Low
+                    break
+                default :
+                    print("else")
+                    break
+                }
+                switch weather {
+                case "rain"  :
+                    print("Rain")
+                    delay += Rain
+                    break
+                    
+                case "snow" :
+                    print("Snow")
+                    delay += Snow
+                    break
+                    
+                case "sleet"  :
+                    print("Sleet")
+                    delay += Sleet
+                    break
+                    
+                case "wind" :
+                    print("Wind")
+                    delay += Wind
+                    break
+                default :
+                    print("else")
+                    break
+                }
+                
+                var maxDelay = max(Rain, Snow, Sleet, Wind) + max(Heavy, Mild, Low)
+                
+                
+                
+                
+                self.difference = maxDelay - delay
+                
+                let storageController = UIAlertController(title: "Alarm", message: "Traffic:\(traffic) and Weather:\(weather). Woken up \(delay) minutes early", preferredStyle: .alert)
+                print("difference: \(self.difference)")
+                let currentDate = Date()
+                if (currentDate > (origDate.addingTimeInterval(TimeInterval(-delay)))){
+                    self.difference = 0;
+                }
             }
             
         }.resume()
-        playSound(soundName)
+        sleep(2)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(difference*60), execute: {
+           
+       
+        
+            self.playSound(soundName)
         //schedule notification for snooze
         if isSnooze {
             let snoozeOption = UIAlertAction(title: "Snooze", style: .default) {
                 (action:UIAlertAction)->Void in self.audioPlayer?.stop()
-                self.alarmScheduler.setNotificationForSnooze(snoozeMinute: 9, soundName: soundName, index: index)
+                self.alarmScheduler.setNotificationForSnooze(snoozeMinute: 10, soundName: soundName, index: index)
             }
             storageController.addAction(snoozeOption)
         }
@@ -144,7 +211,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
         }
         
         storageController.addAction(stopOption)
-        window?.visibleViewController?.navigationController?.present(storageController, animated: true, completion: nil)
+            self.window?.visibleViewController?.navigationController?.present(storageController, animated: true, completion: nil)
+             })
     }
     
     //snooze notification handler when app in background

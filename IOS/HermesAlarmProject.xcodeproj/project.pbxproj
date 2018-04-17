@@ -528,7 +528,7 @@
 				INFOPLIST_FILE = Alarm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Hermes-jf";
+				PRODUCT_BUNDLE_IDENTIFIER = "Hermes-Luke-John";
 				PRODUCT_NAME = HermesAlarmProject;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -543,7 +543,7 @@
 				INFOPLIST_FILE = Alarm/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "Hermes-jf";
+				PRODUCT_BUNDLE_IDENTIFIER = "Hermes-Luke-John";
 				PRODUCT_NAME = HermesAlarmProject;
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;

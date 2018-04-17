@@ -21,8 +21,10 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
     
     
     
-    var delay, Rain, Snow, Sleet, Wind, Heavy, Mild, Low, locType, locationType,destinationLocation, sourceLocation, strSrcLoc,strDesLoc, maxDelay : String!
+    var delay, Rain, Snow, Sleet, Wind, Heavy, Mild, Low, locType,destinationLocation, sourceLocation, strSrcLoc,strDesLoc, maxDelay : String!
+    var locationtype: String! = "custom"
     
+     var AutoTW : Bool = true
     
     
     struct GlobalVariable{
@@ -89,12 +91,12 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         MildPrty.text = Mild
         LowPrty.text = Low
         
-        if (locationType == "smart"){
+        /*if (locationType == "smart"){
             smartButton.backgroundColor = UIColor.darkGray
             custButton.backgroundColor = UIColor.clear
             
-        }
-        if (locationType == "custom"){
+        }*/
+        if (locationtype == "custom"){
             smartButton.backgroundColor = UIColor.clear
             custButton.backgroundColor = UIColor.darkGray
         }
@@ -139,7 +141,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         coordinateBIndicator.adjustsFontSizeToFitWidth = true
         coordinateBIndicator.textAlignment = NSTextAlignment.center
         
-        
+        AutoTW = true
         super.viewWillAppear(animated)
         determineMyCurrentLocation()
         
@@ -275,12 +277,12 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
     @IBAction func smartSelect(_ sender: Any) {
         smartButton.backgroundColor = UIColor.darkGray
         custButton.backgroundColor = UIColor.clear
-        self.locationType = "smart"
+        //self.locationType = "smart"
     }
     
     //set location buttons event handler
     @IBAction func custSelect(_ sender: Any) {
-        self.locationType = "custom"
+        self.locationtype = "custom"
         smartButton.backgroundColor = UIColor.clear
         custButton.backgroundColor = UIColor.darkGray
         // Create a standard UIAlertController
@@ -320,8 +322,24 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
         
         self.strSrcLoc = LabelEditViewController.GlobalVariable.srcName
         self.sourceLocation = LabelEditViewController.GlobalVariable.srcCoord
-        self.locType = locationType
+        self.locType = locationtype
         
+        if (self.sourceLocation == "") {
+       
+                let alert = UIAlertController(title: "Traffic Alert!", message: "Custom Location cannot be empty", preferredStyle: UIAlertControllerStyle.alert)
+                let alertAction = UIAlertAction(title: "OK!", style: UIAlertActionStyle.default)
+                {
+                    (UIAlertAction) -> Void in
+                }
+                alert.addAction(alertAction)
+                present(alert, animated: true)
+                {
+                    () -> Void in
+                }
+            
+        }
+        else {
+            
         
         if (coordinateB != nil){
             saveLoadingIndicator.startAnimating()
@@ -384,12 +402,12 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
             self.delay = ""
             alertMessage(message: "Invalid Destination! Alarm name is still saved")
         }
-        
+        }
     }//end of save buttom
     
     //alert message display
     func alertMessage (message:String) {
-        let alert = UIAlertController(title: "Traffic Alert!", message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Alert!", message: message, preferredStyle: UIAlertControllerStyle.alert)
         let alertAction = UIAlertAction(title: "OK!", style: UIAlertActionStyle.default)
         {
             (UIAlertAction) -> Void in
@@ -438,6 +456,7 @@ class LabelEditViewController: UIViewController, CLLocationManagerDelegate, UISe
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
     }
+    
     
     func findMax () {
         var twDelay: Int

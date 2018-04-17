@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/LabelEditViewController.swift"
-            timestampString = "545672224.188596"
+            timestampString = "545695940.746298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "333"
-            endingLineNumber = "333"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
             landmarkName = "clickSave(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/LabelEditViewController.swift"
-            timestampString = "545672224.188706"
+            timestampString = "545695940.74647"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "354"
-            endingLineNumber = "354"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "clickSave(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/AlarmAddEditViewController.swift"
-            timestampString = "545672224.188799"
+            timestampString = "545695940.746666"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "116"
@@ -104,7 +104,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/LocationViewController.swift"
-            timestampString = "545652158.0232559"
+            timestampString = "545695940.746858"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "5"
@@ -120,11 +120,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.189458"
+            timestampString = "545695940.7469569"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "setNotificationWithDate(_:onWeekdaysForNotify:snoozeEnabled:onSnooze:soundName:index:maxDelay:Rain:Snow:Sleet:Wind:Heavy:Mild:Low:AutoTW:sourceLocation:destinationLocation:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -136,11 +136,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.189575"
+            timestampString = "545695940.747142"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
             landmarkName = "minFireDateWithIndex(notifications:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -152,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.189688"
+            timestampString = "545695940.747349"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "273"
-            endingLineNumber = "273"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "compare(weekday:with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -164,15 +164,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.189799"
+            timestampString = "545695940.747508"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "236"
-            endingLineNumber = "236"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "checkNotification()"
             landmarkType = "7">
          </BreakpointContent>
@@ -184,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.189907"
+            timestampString = "545695940.747663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "reSchedule()"
             landmarkType = "7">
          </BreakpointContent>
@@ -200,11 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.190002"
+            timestampString = "545695940.7478631"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "setNotificationForSnooze(snoozeMinute:soundName:index:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -216,7 +216,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.1901079"
+            timestampString = "545695940.748049"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
@@ -232,7 +232,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.190209"
+            timestampString = "545695940.748243"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -248,12 +248,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Alarm/Scheduler.swift"
-            timestampString = "545672224.190312"
+            timestampString = "545695940.748437"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "39"
             endingLineNumber = "39"
             landmarkName = "setupNotificationSettings()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Alarm/AlarmAddEditViewController.swift"
+            timestampString = "545695940.74862"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
+            landmarkName = "trafficWeatherTap(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Alarm/AppDelegate.swift"
+            timestampString = "545695940.748701"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "application(_:didReceive:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

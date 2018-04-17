@@ -126,7 +126,8 @@ class Scheduler : AlarmSchedulerDelegate
         let d = (calendar as NSCalendar).date(byAdding: NSCalendar.Unit.second, value: -second, to: date, options:.matchStrictly)!
         return d
     }
-    
+
+    //autoTW set alarm func
     internal func setNotificationWithDate(_ date: Date, onWeekdaysForNotify weekdays:[Int], snoozeEnabled:Bool,  onSnooze: Bool, soundName: String, index: Int, maxDelay: Int, Rain: Int, Snow: Int, Sleet: Int, Wind: Int, Heavy: Int, Mild: Int, Low: Int, AutoTW: Bool, sourceLocation: String, destinationLocation: String) {
         
         print("!!!!!!!!!!!!!!!!!: \(date) !!!!!!!!!!!!!!!!!!")
@@ -136,47 +137,15 @@ class Scheduler : AlarmSchedulerDelegate
         var origDate = date
     
         var date = date.addingTimeInterval(TimeInterval(-maxDelay*60))
+       
+        var currDate = Date()
         
-        /*
-        var coordinateA = sourceLocation
-        var coordinateB = destinationLocation
-        let url = URL(string: "http://ec2-18-217-212-185.us-east-2.compute.amazonaws.com/~ec2-user/Hermes/getAlarmInfo.php/")!
-        let postString = "coordinateA=" + coordinateA + "&coordinateB=" + coordinateB + "&deviceID=374a9s9dfs&alarmNum=alarm2"
-        print("@@@@@@@@@@@@@@\(postString)@@@@@@@@@@@@@@")
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.httpBody = postString.data(using: .utf8)
-        
-        _ = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print("error1=\(String(describing: error))")
-                return
-            }
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(String(describing: response))")
-                return
-            }
-            // https://www.hackingwithswift.com/example-code/libraries/how-to-parse-json-using-swiftyjson
-            if let json = try? JSON(data: data) {
-                print("This works!!!!!!!!!!!!!! :D :D :D :D")
-                //  print(json["netDelay"].double)
-                // print(json["traffic"]["methodOfTrans"].string)
-                var weather = json["traffic"]["trafficAmount"].stringValue
-                var traffic = json["weather"]["weatherType"].stringValue
-                
-                print("weather: \(weather)")
-                print("traffic: \(traffic)")
-                /*
-                 DispatchQueue.main.async{
-                 //self.destination.text = "Traffice Delay: \(self.delay)"
-                 }
-                 */
-            }
-            
+        if (currDate > date ){
+            print("currDate is less then date")
+            date = currDate.addingTimeInterval(TimeInterval(1))
+            origDate = currDate.addingTimeInterval(TimeInterval(1))
         }
-        */
+        
         let AlarmNotification: UILocalNotification = UILocalNotification()
         AlarmNotification.alertBody = "Wake Up!"
         AlarmNotification.alertAction = "Open App"
@@ -185,7 +154,12 @@ class Scheduler : AlarmSchedulerDelegate
         AlarmNotification.timeZone = TimeZone.current
         let repeating: Bool = !weekdays.isEmpty
         //Major Key
-        AlarmNotification.userInfo = ["snooze" : snoozeEnabled, "index": index, "soundName": soundName, "repeating" : repeating, "Sleet" : Sleet, "Wind" : Wind, "Snow" : Snow,  "Rain" : Rain,"Heavy" : Heavy, "Mild" : Mild, "Low" : Low, "sourceLocation" : sourceLocation, "destinationLocation" : destinationLocation, "origDate" : origDate]
+        if (AutoTW){
+            AlarmNotification.userInfo = ["snooze" : snoozeEnabled, "index": index, "soundName": soundName, "repeating" : repeating, "Sleet" : Sleet, "Wind" : Wind, "Snow" : Snow,  "Rain" : Rain,"Heavy" : Heavy, "Mild" : Mild, "Low" : Low, "sourceLocation" : sourceLocation, "destinationLocation" : destinationLocation, "origDate" : origDate, "AutoTW" : AutoTW]
+        }else{
+            //noAutoTW
+            AlarmNotification.userInfo = ["snooze" : snoozeEnabled, "index": index, "soundName": soundName, "repeating" : repeating, "Sleet" : 0, "Wind" : 0, "Snow" : 0,  "Rain" : 0,"Heavy" : 0, "Mild" : 0, "Low" : 0, "sourceLocation" : "0,0", "destinationLocation" : "0,0", "origDate" : origDate, "AutoTW" : AutoTW]
+        }
         //repeat weekly if repeat weekdays are selected
         //no repeat with snooze notification
         if !weekdays.isEmpty && !onSnooze{
@@ -207,6 +181,7 @@ class Scheduler : AlarmSchedulerDelegate
             UIApplication.shared.scheduleLocalNotification(AlarmNotification)
         }
         setupNotificationSettings()
+            
         
     }
     
@@ -214,6 +189,9 @@ class Scheduler : AlarmSchedulerDelegate
         let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
         let now = Date()
         let snoozeTime = (calendar as NSCalendar).date(byAdding: NSCalendar.Unit.minute, value: snoozeMinute, to: now, options:.matchStrictly)!
+        
+        //need to make a change here
+
         setNotificationWithDate(snoozeTime, onWeekdaysForNotify: [Int](), snoozeEnabled: true, onSnooze:true, soundName: soundName, index: index, maxDelay: 0, Rain: 0, Snow: 0, Sleet: 0, Wind: 0, Heavy: 0, Mild: 0, Low: 0, AutoTW: false, sourceLocation: "null", destinationLocation: "null" )
     }
     
@@ -225,7 +203,12 @@ class Scheduler : AlarmSchedulerDelegate
         for i in 0..<alarmModel.count{
             let alarm = alarmModel.alarms[i]
             if alarm.enabled {
-                setNotificationWithDate(alarm.date as Date, onWeekdaysForNotify: alarm.repeatWeekdays, snoozeEnabled: alarm.snoozeEnabled, onSnooze: false, soundName: alarm.mediaLabel, index: i, maxDelay: Int(alarm.maxDelay)!, Rain: Int(alarm.Rain)!, Snow: Int(alarm.Snow)!, Sleet: Int(alarm.Sleet)!, Wind: Int(alarm.Wind)!, Heavy: Int(alarm.Heavy)!, Mild: Int(alarm.Mild)!, Low: Int(alarm.Low)!, AutoTW: alarm.autoTW, sourceLocation: alarm.sourceLocation, destinationLocation: alarm.destinationLocation)
+                //change here
+                if(alarm.autoTW){
+                    setNotificationWithDate(alarm.date as Date, onWeekdaysForNotify: alarm.repeatWeekdays, snoozeEnabled: alarm.snoozeEnabled, onSnooze: false, soundName: alarm.mediaLabel, index: i, maxDelay: Int(alarm.maxDelay)!, Rain: Int(alarm.Rain)!, Snow: Int(alarm.Snow)!, Sleet: Int(alarm.Sleet)!, Wind: Int(alarm.Wind)!, Heavy: Int(alarm.Heavy)!, Mild: Int(alarm.Mild)!, Low: Int(alarm.Low)!, AutoTW: alarm.autoTW, sourceLocation: alarm.sourceLocation, destinationLocation: alarm.destinationLocation)
+                }else{
+                                        setNotificationWithDate(alarm.date as Date, onWeekdaysForNotify: alarm.repeatWeekdays, snoozeEnabled: alarm.snoozeEnabled, onSnooze: false, soundName: alarm.mediaLabel, index: i, maxDelay: 0, Rain: 0, Snow: 0, Sleet: 0, Wind: 0, Heavy: 0, Mild: 0, Low: 0, AutoTW: alarm.autoTW, sourceLocation: "0,0", destinationLocation: "0,0")
+                }
             }
         }
     }
