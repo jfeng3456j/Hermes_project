@@ -138,14 +138,6 @@ class Scheduler : AlarmSchedulerDelegate
     
         var date = date.addingTimeInterval(TimeInterval(-maxDelay*60))
        
-        var currDate = Date()
-        
-        if (currDate > date ){
-            print("currDate is less then date")
-            date = currDate.addingTimeInterval(TimeInterval(1))
-            origDate = currDate.addingTimeInterval(TimeInterval(1))
-        }
-        
         let AlarmNotification: UILocalNotification = UILocalNotification()
         AlarmNotification.alertBody = "Wake Up!"
         AlarmNotification.alertAction = "Open App"

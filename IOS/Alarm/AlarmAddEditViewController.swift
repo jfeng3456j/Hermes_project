@@ -159,7 +159,7 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
                 cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             }
             else if indexPath.row == 1 {
-                cell!.textLabel!.text = "Automatic Traffic/Weather Delays"
+                cell!.textLabel!.text = "Set Traffic/Weather Info"
                 
                 let sw = UISwitch(frame: CGRect())
                

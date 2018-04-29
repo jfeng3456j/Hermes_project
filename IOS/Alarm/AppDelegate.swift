@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         
         //show an alert when the alarms goes off
-        let storageController = UIAlertController(title: "Alarm", message: "Time is up!", preferredStyle: .alert)
+        let storageController = UIAlertController(title: "Alarm", message: "Time is ", preferredStyle: .alert)
         var isSnooze: Bool = false
         var soundName: String = ""
         var index: Int = -1
@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
         var sourceLocation: String = ""
         var destinationLocation: String = ""
         
-        var origDate: Date = Date()
+        var origDate: Date
         
         if let userInfo = notification.userInfo {
             isSnooze = userInfo["snooze"] as! Bool
@@ -79,7 +79,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
             
             origDate = userInfo["origDate"] as! Date
         }
-
+        print(sourceLocation)
+        print(destinationLocation)
         
         var coordinateA = sourceLocation
         var coordinateB = destinationLocation
@@ -103,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
             }
             // https://www.hackingwithswift.com/example-code/libraries/how-to-parse-json-using-swiftyjson
             if let json = try? JSON(data: data) {
-                
+                print("This works!!!!!!!!!!!!!! :D :D :D :D")
                 //  print(json["netDelay"].double)
                 // print(json["traffic"]["methodOfTrans"].string)
                 var traffic = String(json["traffic"]["trafficAmount"].stringValue)
@@ -117,6 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
                  }
                  */
                 var delay = 0
+                print("asdasdasd")
                 switch traffic {
                 case "Heavy"  :
                     print("Heavy")
@@ -165,20 +167,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
                     print("else")
                     break
                 }
+                print("sdfsfsdfsf")
                 
                 var maxDelay = max(Rain, Snow, Sleet, Wind) + max(Heavy, Mild, Low)
                 
-                
-                
-                
                 self.difference = maxDelay - delay
-                
                 let storageController = UIAlertController(title: "Alarm", message: "Traffic:\(traffic) and Weather:\(weather). Woken up \(delay) minutes early", preferredStyle: .alert)
                 print("difference: \(self.difference)")
-                let currentDate = Date()
-                if (currentDate > (origDate.addingTimeInterval(TimeInterval(-delay)))){
-                    self.difference = 0;
-                }
             }
             
         }.resume()
@@ -192,7 +187,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AVAudioPlayerDelegate, Al
         if isSnooze {
             let snoozeOption = UIAlertAction(title: "Snooze", style: .default) {
                 (action:UIAlertAction)->Void in self.audioPlayer?.stop()
-                self.alarmScheduler.setNotificationForSnooze(snoozeMinute: 10, soundName: soundName, index: index)
+                self.alarmScheduler.setNotificationForSnooze(snoozeMinute: 9, soundName: soundName, index: index)
             }
             storageController.addAction(snoozeOption)
         }
