@@ -149,7 +149,8 @@ class AlarmAddEditViewController: UIViewController, UITableViewDelegate, UITable
                 cell!.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
             }
             else if indexPath.row == 1 {
-                cell!.textLabel!.text = "Automatic Traffic/Weather Delays"
+                
+                cell!.textLabel!.text = "Traffic/Weather Delays"
                 
                 let sw = UISwitch(frame: CGRect())
                 sw.addTarget(self, action: #selector(AlarmAddEditViewController.trafficWeatherTap(_:)), for: UIControlEvents.touchUpInside)
